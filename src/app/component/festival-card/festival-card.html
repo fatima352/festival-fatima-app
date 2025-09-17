@@ -1,0 +1,21 @@
+@if(festival()){
+@let fest = festival()!;
+
+<!-- <li [class.highlight]="fest.year === currentYear()"> ici j'appel currentYear comme une fonction alors que ce n'est pas une-->
+<mat-card [class.highlight]="fest.year === currentYear">
+    <mat-card-header>
+        <h2>{{fest.name}}</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <p>Localisation : <a href="">{{fest.localisation}}</a></p>
+        <p>Year : {{fest.year}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button (click)="remove.emit(fest.name)">Delete</button> 
+    </mat-card-actions>
+    <mat-card-footer>
+
+    </mat-card-footer>
+</mat-card>
+}
+

@@ -1,0 +1,13 @@
+<ul class="festivals-list">
+    @for (fest of festivals; track fest.name){
+        <li>
+            @let hiddenFestival = false;
+            <app-festival-card 
+            [festival]="fest"
+            (remove)="remove($event)"
+            [hidden]="hiddenFestival">
+            </app-festival-card>
+        </li>
+    }
+</ul>
+<button>add</button>
