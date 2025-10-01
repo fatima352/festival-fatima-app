@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Name">
+        @if(form.controls['name'].errors?.['required'] && form.controls['name'].touched){
+            <mat-error>Le nom est obligatoire</mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Location</mat-label>
+        <input matInput type="text" formControlName="location" placeholder="Localisation">
+        @if(form.controls['location'].errors?.['required'] && form.controls['location'].touched){
+            <mat-error>La localisation est obligatoire</mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Year</mat-label>
+        <input matInput type="text" formControlName="year" placeholder="Year">
+        @if(form.controls['year'].errors?.['required'] && form.controls['year'].touched){
+            <mat-error>L'année est obligatoire</mat-error>
+        }
+    </mat-form-field>
+
+     <button type="submit" mat-raised-button color="primary">Enregistrer</button>
+     <button (click)="close()" mat-raised-button color="primary">Fermer</button>
+</form>
+
