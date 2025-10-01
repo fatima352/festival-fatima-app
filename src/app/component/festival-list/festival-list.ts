@@ -1,21 +1,30 @@
-import { Component, EventEmitter, Output, inject} from '@angular/core';
+import { Component, EventEmitter, Output, inject, signal} from '@angular/core';
 import { Festival } from '../../interface/festival';
 import { FestivalCard } from '../festival-card/festival-card'; 
 import { FestivalService } from '../../services/festival-service';
+import { FormAdd } from "../../form/form-add/form-add";
 
 @Component({
   selector: 'app-festival-list',
   standalone: true,
-  imports: [FestivalCard],
+  imports: [FestivalCard, FormAdd],
   templateUrl: './festival-list.html',
   styleUrl: './festival-list.css'
 })
 export class FestivalList {
   private festivalservice = inject(FestivalService)
   public festivales = this.festivalservice.festivales
+  // public hiddenform = signal<boolean>(true)
+  public showstate = this.festivalservice.showform
+
+  public show(){
+    this.festivalservice.show()
+  }
+
+ 
 
   public add(name: string, localisation: string, year: number){
-    this.festivalservice.add(name, localisation,year)
+    this.festivalservice.add(name, localisation, year)
   }
 
   public delete(id: number){
@@ -29,6 +38,12 @@ export class FestivalList {
   public findById(id : number){
     return this.festivalservice.findById(id)
   }
+
+
+// deplacer dans le service on peut utiliser model
+  // public show(){
+  //   this.hiddenform.update(f => !f)
+  // }
 
   // festivals : Festival[] =[
   //   {name : "Fest1" , localisation : "Mtp", year : 2003},

@@ -1,6 +1,7 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, inject } from '@angular/core';
 import { Festival } from '../../interface/festival';
 import {MatCardModule} from '@angular/material/card';
+import { FestivalService } from '../../services/festival-service';
 
 
 @Component({
@@ -10,9 +11,9 @@ import {MatCardModule} from '@angular/material/card';
   styleUrl: './festival-card.css'
 })
 export class FestivalCard {
+  // private servicefestival = inject(FestivalService);
   public festival = input<Festival>();
-  public remove = output<string>();
-  public add = output<Festival>();
+  public delete = output<number>();
   
   // public currentYear = new Date().getFullYear; faux car je stock la fonction elle meme pas le resultat
   public currentYear = new Date().getFullYear();

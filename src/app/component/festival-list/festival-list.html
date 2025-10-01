@@ -4,10 +4,15 @@
             @let hiddenFestival = false;
             <app-festival-card 
             [festival]="fest"
-            (remove)="delete($event)"
+            (delete)="delete($event)"
             [hidden]="hiddenFestival">
             </app-festival-card>
         </li>
     }
 </ul>
-<button>Add</button>
+<button (click)="show()">Add</button>
+
+@if(showstate()){
+    <app-form-add></app-form-add>
+}
+

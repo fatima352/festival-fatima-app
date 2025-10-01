@@ -12,19 +12,21 @@ export class FestivalService {
     {id : 3, name : "Fest3" , localisation : "Andalucia", year : 2014},
     {id : 4, name : "Fest4" , localisation : "Paris", year : 2020}
   ])
-
   readonly festivales = this._festivales.asReadonly()
+
+  private readonly _showform = signal(false)
+  readonly showform = this._showform.asReadonly()
 
   public add(name: string, localisation : string, year : number){
     const alreadyAdded = this._festivales().find((f)=> f.name === name && f.localisation === localisation && f.year === year)
     try{
       if(alreadyAdded === undefined){
-        const id = this._festivales.length > 0 ? Math.max(...this._festivales().map( f => f.id || 0)) + 1 : 1
+        const id = this._festivales().length > 0 ? Math.max(...this._festivales().map( f => f.id || 0)) + 1 : 1
         const newfestival : Festival = {id : id , name : name, localisation: localisation , year : year}
         this._festivales.update(festivales => [...festivales, newfestival])
-        console.log('Festivale ajouter avec succée')
+        console.log('Festivale ajouter avec succée', id)
       }
-      console.log('Festivale déjà ajouter')
+      else{console.log('Festivale déjà ajouter')}
     }catch(error){
       console.log("Error lors de l'ajout", error)
     }
@@ -33,7 +35,7 @@ export class FestivalService {
 
   public delete(id : number){
     try{
-      this._festivales.update(festivales => festivales.filter(f  => f.id == id))
+      this._festivales.update(festivales => festivales.filter(f  => f.id != id))
       console.log("Festivale supprimée :", id)
     }catch(error){
       console.error("Erreur lors de la suppression :", error)
@@ -47,10 +49,17 @@ export class FestivalService {
   }
 
   public findById(id : number){
-     return this._festivales().find((f)=>f.id === id)
+    return this._festivales().find((f)=>f.id === id)
   }
 
+//methode avec service mais on peut utiliser model() dans le composant fest list
+  public show(){
+    this._showform.update(f => !f)
+  }
 
+  public close(){
+    this._showform.set(false)
+  }
 
   
 }
